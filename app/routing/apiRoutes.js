@@ -1,4 +1,4 @@
-var friendList = require('../data/friend');
+var friendList = require('../data/friends.js');
 
 module.exports = function(app){
   
@@ -17,7 +17,7 @@ module.exports = function(app){
     for(var i = 0; i < friendList.length; i++){
       var scoresDiff = 0;
      
-      for(var m = 0; m < newFriendScores.length; j++){
+      for(var m = 0; m < newFriendScores.length; m++){
         scoresDiff += (Math.abs(parseInt(friendList[i].scores[m]) - parseInt(newFriendScores[m])));
       }
 
@@ -33,8 +33,8 @@ module.exports = function(app){
     }
 
 
-    var bff = friendList[bestMatch];
-    res.json(bff);
+    var bestFriend = friendList[bestMatch];
+    res.json(bestFriend);
 
 
     friendList.push(req.body);

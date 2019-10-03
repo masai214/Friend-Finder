@@ -15,12 +15,28 @@
         <div class="card ">
             <img class="card-img-top" src="./images/nba-players.jpg" alt="nba-players">
             <div class="card-body">
+                <form>
+                    <div class="userInput">
+                        <h3>Your Information!</h3>
+                        <div class="form-group name">
+                            <label for="friendName">Your Name</label>
+                            <input type="name" class="confirmation" id="userName" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group photo">
+
+                            <label for="friendPhoto">Your Picture</label>
+                            <input type="name" class="confirmation" id="userPhoto"
+                                placeholder="Link to a photo of yourself">
+                        </div>
+                    </div>
+                </form>
+
                 <h3 class="card-title">Question 1: </h3>
                 <p class="card-text">Are you willing to give up the ball for a better final shot?
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q1">
+                            <select class="form-control questions" id="q1">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -38,7 +54,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q2">
+                            <select class="form-control questions" id="q2">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -56,7 +72,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q3">
+                            <select class="form-control questions" id="q3">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -74,7 +90,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q4">
+                            <select class="form-control questions" id="q4">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -92,7 +108,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q5">
+                            <select class="form-control questions" id="q5">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -110,7 +126,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q6">
+                            <select class="form-control questions" id="q6">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -128,7 +144,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q7">
+                            <select class="form-control questions" id="q7">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -146,7 +162,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q8">
+                            <select class="form-control questions" id="q8">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -164,7 +180,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q9">
+                            <select class="form-control questions" id="q9">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -182,7 +198,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sel1">Choose an option : </label>
-                            <select class="form-control" id="q10">
+                            <select class="form-control questions" id="q10">
                                 <option value="">Choose an option</option>
                                 <option value="1">1 (Strongly Disagree)</option>
                                 <option value="2">2</option>
@@ -200,11 +216,85 @@
 
         </div>
 
-        <div id="myModal"></div>
+        <div id="myModal">
+            <div class="modal-content">
+                <h3>Here's your most compatible teammate!</h3>
+                <h5 id=matchTeammate></h5>
+                <img id="matchPic" src="" alt="My Match">
+            </div>
+        </div>
 
 
 
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myModal").css('display', 'none')
+            $(".submit").on("click", function () {
+                function confirmation() {
+                    var isTrue = true;
+                    $(".confirmation").each(function () {
+                        if ($(this).val() === '') {
+                            isTrue = false;
+                        }
+                    })
+
+                    $(".questions").each(function () {
+                        if ($(this).val() === "") {
+                            isTrue = false;
+                        }
+                    })
+
+                    return isTrue;
+                }
+
+                if (confirmation() == true) {
+                    $("#myModal").css('display', 'block');
+                    var newFriend = {
+                        name: $('#userName').val().trim(),
+                        profilePic: $("#userPhoto").val().trim(),
+                        scores: [
+                            $('#q1').val(),
+                            $('#q2').val(),
+                            $('#q3').val(),
+                            $('#q4').val(),
+                            $('#q5').val(),
+                            $('#q6').val(),
+                            $('#q7').val(),
+                            $('#q8').val(),
+                            $('#q9').val(),
+                            $('#q10').val()
+                        ]
+                    }
+
+                    var URL = window.location.origin;
+
+                    $.post(URL + "/api/friends", newFriend, function (data) {
+                        $("#matchTeammate").text(data.name);
+                        $("#matchPic").attr("src", data.profilePic);
+                    })
+
+                    
+
+                    $('#userName').val("");
+                    $('#userPhoto').val("");
+                    $('#q1').val("");
+                    $('#q2').val("");
+                    $('#q3').val("");
+                    $('#q4').val("");
+                    $('#q5').val("");
+                    $('#q6').val("");
+                    $('#q7').val("");
+                    $('#q8').val("");
+                    $('#q9').val("");
+                    $('#q10').val("");
+                }else {
+                    alert("Make sure everything is filled before submitting, thank you :)")
+                }
+            })
+        })
+    </script>
 
 </body>
 
